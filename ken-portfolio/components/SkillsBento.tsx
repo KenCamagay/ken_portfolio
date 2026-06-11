@@ -1,22 +1,21 @@
 "use client";
-
 import {
   Code2,
   Database,
   Layers,
-  Server,
+  Smartphone,
   Sparkles,
-  Terminal,
   Wrench,
 } from "lucide-react";
-import { motion, useScroll, useTransform } from "motion/react";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion, useScroll, useTransform } from "motion/react";
 import SectionHeader from "./SectionHeader";
 import { skills } from "@/data/skills";
 
 const iconMap = {
-  Frontend: Code2,
+  "Web Development": Code2,
+  "Mobile Development": Smartphone,
   "UI Design": Layers,
-  Backend: Server,
   Tools: Wrench,
 };
 
@@ -28,6 +27,132 @@ const terminalTextColor = [
   "text-orange-300",
 ];
 
+function SkillPillStream({
+  items,
+  skillIndex,
+}: {
+  items: string[];
+  skillIndex: number;
+}) {
+  const visibleCount = 6;
+  const [page, setPage] = useState(0);
+
+  const totalPages = Math.ceil(items.length / visibleCount);
+
+  useEffect(() => {
+    if (totalPages <= 1) return;
+
+    const interval = setInterval(() => {
+      setPage((current) => (current + 1) % totalPages);
+    }, 5500 + skillIndex * 250);
+
+    return () => clearInterval(interval);
+  }, [totalPages, skillIndex]);
+
+  const start = page * visibleCount;
+  const visibleItems = items.slice(start, start + visibleCount);
+
+  return (
+    <div className="mt-auto pt-8">
+      <div className="mb-3 flex items-center justify-between font-mono">
+        <p className="text-xs text-slate-500">
+          <span className="text-cyan-300">$</span> stream skills
+        </p>
+
+        <p className="text-xs text-slate-600">
+          {Math.min(start + 1, items.length)}-
+          {Math.min(start + visibleCount, items.length)} / {items.length}
+        </p>
+      </div>
+
+      <div className="relative min-h-[104px] overflow-hidden rounded-2xl border border-white/10 bg-black/20 p-3">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={page}
+            initial={{
+              opacity: 0,
+              y: 18,
+              filter: "blur(6px)",
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              filter: "blur(0px)",
+            }}
+            exit={{
+              opacity: 0,
+              y: -18,
+              filter: "blur(6px)",
+            }}
+            transition={{
+              duration: 0.8,
+              ease: "easeOut",
+            }}
+            className="flex flex-wrap gap-2"
+          >
+            {visibleItems.map((item, itemIndex) => (
+              <motion.span
+                key={item}
+                initial={{
+                  opacity: 0,
+                  x: -16,
+                  scale: 0.92,
+                }}
+                animate={{
+                  opacity: 1,
+                  x: 0,
+                  scale: 1,
+                }}
+                transition={{
+                  duration: 0.35,
+                  delay: itemIndex * 0.045,
+                  ease: "easeOut",
+                }}
+                whileHover={{
+                  y: -4,
+                  scale: 1.06,
+                  backgroundColor: "rgba(59, 130, 246, 0.16)",
+                  borderColor: "rgba(125, 211, 252, 0.55)",
+                  boxShadow: "0 0 24px rgba(56, 189, 248, 0.16)",
+                }}
+                className={`relative overflow-hidden rounded-full border border-cyan-300/20 bg-cyan-300/[0.08] px-3.5 py-1.5 text-sm font-semibold shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur ${
+                  terminalTextColor[(start + itemIndex) % terminalTextColor.length]
+                }`}
+              >
+                <span className="relative z-10">{item}</span>
+              </motion.span>
+            ))}
+          </motion.div>
+        </AnimatePresence>
+
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-slate-950/80 to-transparent" />
+      </div>
+
+      {totalPages > 1 && (
+        <div className="mt-3 flex gap-2">
+          {Array.from({ length: totalPages }).map((_, index) => (
+            <button
+              key={index}
+              type="button"
+              onClick={() => setPage(index)}
+              aria-label={`Show skill batch ${index + 1}`}
+              className="h-2 rounded-full"
+            >
+              <motion.span
+                animate={{
+                  width: page === index ? 24 : 8,
+                  opacity: page === index ? 1 : 0.35,
+                }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
+                className="block h-2 rounded-full bg-cyan-300"
+              />
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 export default function SkillsBento() {
   const { scrollYProgress } = useScroll();
 
@@ -127,7 +252,7 @@ export default function SkillsBento() {
                     transition={{ duration: 0.8, delay: 0.25, ease: "easeOut" }}
                     className="mt-6 max-w-2xl text-4xl font-black tracking-tight text-white sm:text-5xl"
                   >
-                    Frontend, backend, database, and deployment working as one.
+                    Web, mobile, UI, and tools working as one.
                   </motion.h3>
 
                   <motion.p
@@ -165,11 +290,11 @@ export default function SkillsBento() {
                   className="grid gap-3 sm:grid-cols-2"
                 >
                  {[
-                  ["frontend", "ready"],
-                  ["backend", "connected"],
-                  ["database", "synced"],
-                  ["deployment", "prepared"],
-                ].map(([label, status], index) => (
+                    ["web", "ready"],
+                    ["mobile", "building"],
+                    ["ui", "polished"],
+                    ["tools", "prepared"],
+                  ].map(([label, status], index) => (
                   <motion.div
                     key={label}
                     variants={{
@@ -330,60 +455,7 @@ export default function SkillsBento() {
                     </motion.p>
                   </div>
 
-                  <motion.div
-                    initial="hidden"
-                    whileInView="show"
-                    viewport={{ once: false, amount: 0.4 }}
-                    variants={{
-                      hidden: {},
-                      show: {
-                        transition: {
-                          staggerChildren: 0.06,
-                          delayChildren: 0.5 + index * 0.08,
-                        },
-                      },
-                    }}
-                    className="mt-auto flex flex-wrap gap-2 pt-8"
-                  >
-                    {skill.items.map((item, itemIndex) => (
-                      <motion.span
-                        key={item}
-                        variants={{
-                          hidden: {
-                            opacity: 0,
-                            y: 18,
-                            x: -8,
-                            rotate: -5,
-                            scale: 0.88,
-                          },
-                          show: {
-                            opacity: 1,
-                            y: 0,
-                            x: 0,
-                            rotate: 0,
-                            scale: 1,
-                            transition: {
-                              duration: 0.45,
-                              ease: "easeOut",
-                            },
-                          },
-                        }}
-                        whileHover={{
-                          y: -5,
-                          scale: 1.08,
-                          backgroundColor: "rgba(59, 130, 246, 0.16)",
-                          borderColor: "rgba(125, 211, 252, 0.55)",
-                          boxShadow: "0 0 24px rgba(56, 189, 248, 0.16)",
-                        }}
-                        className={`relative overflow-hidden rounded-full border border-cyan-300/20 bg-cyan-300/[0.08] px-3.5 py-1.5 text-sm font-semibold shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur ${
-                          terminalTextColor[itemIndex % terminalTextColor.length]
-                        }`}
-                      >
-                        <span className="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 transition duration-300 group-hover:opacity-100" />
-                        <span className="relative z-10">{item}</span>
-                      </motion.span>
-                    ))}
-                  </motion.div>
+                  <SkillPillStream items={skill.items} skillIndex={index} />
                 </div>
               </motion.div>
             );

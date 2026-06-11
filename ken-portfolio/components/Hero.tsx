@@ -59,14 +59,19 @@ const clipReveal: Variants = {
 };
 export default function Hero() {
   const techStack = [
-    "Next.js",
+    "Web Development",
+    "Mobile Development",
+    "UI Design",
     "React",
+    "Next.js",
+    "React Native",
+    "Expo",
     "Tailwind CSS",
     "Laravel",
-    "PHP",
-    "MySQL",
     "FastAPI",
-    "TypeScript",
+    "MongoDB",
+    "MySQL",
+    "And More",
   ];
 
   const cardItems = [
@@ -113,7 +118,7 @@ export default function Hero() {
 
     
   return (
-    <section className="relative flex min-h-screen items-center overflow-hidden px-6 py-24">
+    <section id="hero" className="relative flex min-h-screen items-center overflow-hidden px-6 py-24">
       <div className="absolute inset-0 -z-10">
         <div className="hero-grid absolute inset-0 opacity-30" />
 
@@ -222,10 +227,10 @@ export default function Hero() {
             animate="show"
             className="mt-6 max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl"
             >
-            I’m a full-stack developer with advanced knowledge in various frontend and
-            backend languages, frameworks, and tools. I build clean, responsive, and
-            functional web applications using technologies like Next.js, React, Tailwind
-            CSS, Laravel, PHP, MySQL, and FastAPI.
+            I’m a Fullstack developer focused on web development, mobile development, and clean UI
+            design. I build responsive interfaces, backend-connected systems, and practical
+            digital experiences using tools like React, Next.js, React Native, Expo,
+            Laravel, FastAPI, MongoDB, and MySQL.
             </motion.p>
 
           <div className="mt-8 flex flex-wrap gap-3">
@@ -301,7 +306,7 @@ export default function Hero() {
 
             <span className="h-1 w-1 rounded-full bg-slate-600" />
 
-            <span>Frontend / Backend / UI Systems</span>
+            <span>Fullstack / Web / Mobile / UI Systems</span>
           </motion.div>
         </motion.div>
 

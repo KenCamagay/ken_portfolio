@@ -1,11 +1,11 @@
 "use client";
 
-import Image from "next/image";
-import { ExternalLink, ArrowUpRight } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import { motion } from "motion/react";
 import SectionHeader from "./SectionHeader";
 import { projects } from "@/data/projects";
+import ProjectPreview from "./ProjectPreview";
 
 export default function ProjectsGrid() {
   return (
@@ -71,43 +71,41 @@ export default function ProjectsGrid() {
                   y: -8,
                   borderColor: "rgba(147,197,253,0.35)",
                 }}
-                className={`group relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.04] shadow-2xl shadow-black/20 backdrop-blur-xl will-change-transform ${layoutClass}`}
+                className={`group relative overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950/75 shadow-2xl shadow-black/30 backdrop-blur-xl will-change-transform ${layoutClass}`}
               >
-                <div className={`grid h-full ${innerLayout}`}>
+                <div className="relative z-10 flex h-full flex-col">
+              <div className="flex items-center justify-between border-b border-white/10 bg-white/[0.035] px-5 py-4">
+                <div className="flex min-w-0 items-center gap-3">
+                  <div className="flex shrink-0 gap-2">
+                    <span className="h-3 w-3 rounded-full bg-red-400" />
+                    <span className="h-3 w-3 rounded-full bg-yellow-400" />
+                    <span className="h-3 w-3 rounded-full bg-green-400" />
+                  </div>
+
+                  <p className="truncate font-mono text-sm text-slate-500">
+                    ken@portfolio: ~/projects/{project.title.toLowerCase().replaceAll(" ", "-")}
+                  </p>
+                </div>
+
+                <p className="shrink-0 font-mono text-xs text-cyan-300">
+                  0{index + 1}
+                </p>
+              </div>
+
+              <div className={`grid flex-1 gap-6 p-5 sm:p-6 lg:p-7 ${innerLayout}`}>
                   {/* Image Side */}
-                  <div
-                    className={`relative min-h-72 overflow-hidden bg-slate-900 ${imageOrder}`}
-                  >
-                    {project.image ? (
-                      <Image
-                        src={project.image}
-                        alt={project.title}
-                        fill
-                        sizes="(max-width: 1024px) 100vw, 50vw"
-                        className="object-cover transition-transform duration-700 group-hover:scale-105"
-                      />
-                    ) : (
-                      <div className="flex h-full min-h-72 items-center justify-center bg-gradient-to-br from-slate-900 via-slate-950 to-blue-950/40">
-                        <div className="text-center">
-                          <div className="mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-3xl border border-white/10 bg-white/5">
-                            <ArrowUpRight className="h-8 w-8 text-blue-300" />
-                          </div>
-                          <p className="text-sm font-medium text-slate-400">
-                            Project Preview
-                          </p>
-                        </div>
-                      </div>
-                    )}
+                  <div className={`relative min-h-72 ${imageOrder}`}>
+                    <ProjectPreview
+                      title={project.title}
+                      images={project.images}
+                      featured={isFeatured}
+                    />
 
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
 
                     <div className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
                       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/80 to-transparent" />
                       <div className="project-scan absolute inset-x-0 h-24 bg-gradient-to-b from-cyan-300/10 to-transparent" />
-                    </div>
-
-                    <div className="absolute left-5 top-5 rounded-full border border-white/10 bg-black/30 px-4 py-2 text-xs font-semibold text-white backdrop-blur">
-                      0{index + 1}
                     </div>
 
                     {isFeatured && (
@@ -174,7 +172,7 @@ export default function ProjectsGrid() {
                         {project.title}
                       </motion.h3>
 
-                      <motion.p
+                      <motion.div
                         initial={{ opacity: 0, y: 18 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, amount: 0.4 }}
@@ -183,10 +181,18 @@ export default function ProjectsGrid() {
                           delay: 0.18,
                           ease: "easeOut",
                         }}
-                        className="mt-5 max-w-2xl text-sm leading-7 text-slate-400 sm:text-base"
+                        className="mt-5 max-w-2xl rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-4 font-mono shadow-inner shadow-black/30"
                       >
-                        {project.description}
-                      </motion.p>
+                        <p className="text-xs text-slate-500">
+                          <span className="text-cyan-300">$</span>{" "}
+                          describe --project="{project.title}"
+                        </p>
+
+                        <p className="mt-3 text-sm leading-7 text-slate-300">
+                          <span className="text-green-300">output:</span>{" "}
+                          {project.description}
+                        </p>
+                      </motion.div>
                     </div>
 
                     <motion.div
@@ -240,6 +246,7 @@ export default function ProjectsGrid() {
                 <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
                   <div className="absolute -right-24 -top-24 h-64 w-64 rounded-full bg-blue-400/10 blur-3xl" />
                   <div className="absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-purple-400/10 blur-3xl" />
+                </div>
                 </div>
               </motion.article>
             );
