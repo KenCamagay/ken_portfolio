@@ -25,7 +25,7 @@ const contactLinks = [
     label: "LinkedIn",
     value: "linkedin.com/in/YOUR-LINKEDIN",
     meta: "contact.linkedin",
-    href: "https://www.linkedin.com/in/ken-camagay-530441380",
+    href: "https://www.linkedin.com/in/ken-camagay-024a56429/",
     icon: FaLinkedin,
     color: "blue",
   },
