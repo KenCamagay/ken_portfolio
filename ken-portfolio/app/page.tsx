@@ -13,7 +13,6 @@ export default function Home() {
       <SiteBackground />
       <IntroLoader />
       <Watermark />
-      <ScrollProgress />
       <Hero />
       <ProjectsGrid />
       <SkillsBento />
