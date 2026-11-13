@@ -1,0 +1,97 @@
+
+/* ========================================
+   PRECISION CURSOR
+======================================== */
+
+.layer {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+
+.ring,
+.dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  pointer-events: none;
+  border-radius: 50%;
+  opacity: 0;
+
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+
+.ring {
+  width: 30px;
+  height: 30px;
+
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  background: transparent;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  mix-blend-mode: difference;
+
+ transition:
+  width 0.32s cubic-bezier(.22, 1, .36, 1),
+  height 0.32s cubic-bezier(.22, 1, .36, 1),
+  background 0.32s ease;
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  background: #ffffff;
+
+  mix-blend-mode: difference;
+}
+
+/* Interactive target */
+
+.ring[data-active="true"] {
+  width: 50px;
+  height: 50px;
+  border-color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Contextual cursor label */
+
+.ring[data-labeled="true"] {
+  width: 74px;
+  height: 74px;
+  border-color: #ffffff;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.label {
+  color: #ffffff;
+  font-size: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-align: center;
+  white-space: nowrap;
+  opacity: 0;
+
+  transition: opacity 0.2s ease;
+}
+
+.ring[data-labeled="true"] .label {
+  opacity: 1;
+}
+
+@media (hover: none),
+       (pointer: coarse),
+       (prefers-reduced-motion: reduce) {
+  .layer {
+    display: none;
+  }
+}

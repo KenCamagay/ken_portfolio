@@ -1,0 +1,378 @@
+
+/* =========================================
+   K/C — THREE.JS OPENING EXPERIENCE
+========================================= */
+
+.intro {
+  --kc-paper: #eeeae3;
+  --kc-ink: #171419;
+  --kc-violet: #945cf5;
+
+  position: relative;
+  width: 100%;
+
+  margin-top: var(--site-nav-height, 76px);
+
+  /* Controls how long the intro scroll lasts */
+  height: calc(
+    225svh - var(--site-nav-height, 76px)
+  );
+
+  background: var(--kc-paper);
+  color: var(--kc-ink);
+}
+
+/* -----------------------------------------
+   STICKY VIEWPORT
+----------------------------------------- */
+
+.stage {
+  position: sticky;
+
+  top: var(--site-nav-height, 76px);
+
+  width: 100%;
+  height: calc(
+    100svh - var(--site-nav-height, 76px)
+  );
+
+  overflow: hidden;
+  isolation: isolate;
+
+  background: var(--kc-paper);
+}
+
+/* A subtle print registration line */
+
+.stage::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+
+  top: 0;
+  bottom: 0;
+  left: 6%;
+
+  width: 1px;
+
+  background: rgba(23, 20, 25, 0.1);
+  pointer-events: none;
+}
+
+/* -----------------------------------------
+   PORTAL — EXPANDS INTO DARK HERO
+----------------------------------------- */
+
+.portal {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+
+  background: #141217;
+
+  clip-path: inset(0 50% 0 50%);
+  will-change: clip-path;
+
+  pointer-events: none;
+}
+
+/* -----------------------------------------
+   REAL WEBGL CANVAS
+----------------------------------------- */
+
+.canvasLayer {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  pointer-events: none;
+  will-change: opacity;
+}
+
+.canvasLayer canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  outline: none;
+}
+
+/* Static fallback until WebGL is available */
+
+.staticLogo {
+  position: absolute;
+  z-index: 3;
+
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  font-family:
+    Impact,
+    Haettenschweiler,
+    "Arial Narrow Bold",
+    sans-serif;
+
+  font-size: clamp(125px, 29vw, 460px);
+  font-weight: 900;
+  line-height: 1;
+
+  letter-spacing: -0.085em;
+  white-space: nowrap;
+
+  color: var(--kc-ink);
+
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.staticLogo span {
+  color: var(--kc-violet);
+}
+
+.staticHidden {
+  opacity: 0;
+}
+
+/* -----------------------------------------
+   EDITORIAL TOP
+----------------------------------------- */
+
+.top {
+  position: absolute;
+  z-index: 5;
+
+  top: 32px;
+  left: 6%;
+  right: 6%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+
+  padding-top: 17px;
+  border-top: 1px solid #908993;
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+}
+
+.top a {
+  color: inherit;
+  text-decoration: none;
+
+  padding-bottom: 5px;
+  border-bottom: 1px solid currentColor;
+
+  transition: color 0.25s ease;
+}
+
+.top a:hover {
+  color: #8955e5;
+}
+
+.top a:focus-visible {
+  outline: 2px solid var(--kc-violet);
+  outline-offset: 6px;
+}
+
+/* -----------------------------------------
+   EDITORIAL SIDE ANNOTATION
+----------------------------------------- */
+
+.side {
+  position: absolute;
+  z-index: 5;
+
+  top: 50%;
+  right: 2.5%;
+
+  transform: translateY(-50%);
+  writing-mode: vertical-rl;
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+
+  color: #817785;
+
+  pointer-events: none;
+}
+
+/* -----------------------------------------
+   EDITORIAL BOTTOM
+----------------------------------------- */
+
+.bottom {
+  position: absolute;
+  z-index: 5;
+
+  bottom: 35px;
+  left: 6%;
+  right: 6%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+
+  padding-bottom: 17px;
+  border-bottom: 1px solid #908993;
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+}
+
+.bottom span:nth-child(2) {
+  color: #786f7d;
+}
+
+/* -----------------------------------------
+   SCROLL PROGRESS
+----------------------------------------- */
+
+.progressTrack {
+  position: absolute;
+  z-index: 6;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  width: 100%;
+  height: 3px;
+
+  background: #cec6d0;
+  pointer-events: none;
+}
+
+.progressFill {
+  width: 100%;
+  height: 100%;
+
+  background: var(--kc-violet);
+
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+/* -----------------------------------------
+   WEBGL FALLBACK
+----------------------------------------- */
+
+.fallbackMode {
+  height: calc(
+    100svh - var(--site-nav-height, 76px)
+  );
+}
+
+.fallbackMode .stage {
+  position: relative;
+  top: auto;
+}
+
+.fallbackMode .portal {
+  display: none;
+}
+
+/* -----------------------------------------
+   MOBILE
+----------------------------------------- */
+
+@media (max-width: 900px) {
+  .intro {
+    height: calc(
+      100svh - var(--site-nav-height, 68px)
+    );
+  }
+
+  .stage {
+    position: relative;
+    top: auto;
+  }
+
+  .portal {
+    display: none;
+  }
+
+  .staticLogo {
+    font-size: clamp(115px, 31vw, 290px);
+  }
+
+  .side {
+    display: none;
+  }
+
+  .top,
+  .bottom {
+    font-size: 9px;
+    letter-spacing: 0.1em;
+  }
+
+  .bottom span:nth-child(2) {
+    display: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .top,
+  .bottom {
+    left: 6%;
+    right: 6%;
+    gap: 12px;
+  }
+
+  .top {
+    top: 25px;
+  }
+
+  .top span {
+    max-width: 60%;
+    line-height: 1.5;
+  }
+
+  .bottom span:first-child {
+    max-width: 65%;
+  }
+
+  .staticLogo {
+    font-size: clamp(100px, 33vw, 175px);
+  }
+}
+
+/* -----------------------------------------
+   ACCESSIBILITY
+----------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .intro {
+    height: calc(
+      100svh - var(--site-nav-height, 76px)
+    );
+  }
+
+  .stage {
+    position: relative;
+    top: auto;
+  }
+
+  .portal,
+  .canvasLayer {
+    display: none;
+  }
+
+  .staticLogo {
+    opacity: 1;
+    transition: none;
+  }
+
+  .progressFill {
+    transform: scaleX(1);
+  }
+}

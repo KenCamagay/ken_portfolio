@@ -1,0 +1,883 @@
+
+/* ==========================================
+   CONTACT — THE OPEN BRIEF
+   ========================================== */
+
+.contact {
+  --ink: #171419;
+  --paper: #efebe4;
+  --violet: #9b72ff;
+
+  width: 100%;
+  position: relative;
+  background: var(--ink);
+  scroll-margin-top: var(--site-nav-height, 76px);
+}
+
+/* ==========================================
+   PART 1 — EDITORIAL INVITATION
+   ========================================== */
+
+.cover {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  min-height: max(
+    690px,
+    calc(100svh - var(--site-nav-height, 76px))
+  );
+
+  padding: 36px 6% 32px;
+  overflow: hidden;
+  isolation: isolate;
+
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* A subtle vertical registration line */
+.cover::before {
+  content: "";
+  position: absolute;
+  left: 6%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+
+  background: rgba(255, 255, 255, 0.065);
+  pointer-events: none;
+}
+
+.coverTop,
+.coverBottom {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+.coverTop {
+  padding-top: 16px;
+  border-top: 1px solid #5c555f;
+}
+
+.coverBottom {
+  align-items: center;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #514a55;
+  color: #aba2b0;
+}
+
+/* Everything that tilts on exit */
+
+.coverContent {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+  max-width: 1800px;
+  margin: auto;
+
+  padding: 60px 0 80px;
+  transform-origin: center bottom;
+  backface-visibility: hidden;
+}
+
+.coverIntro {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+
+  margin-bottom: 35px;
+
+  color: #b5a2d6;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+}
+
+.asterisk {
+  color: var(--violet);
+  font-size: 34px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+/* Giant editorial headline */
+
+.bigTitle {
+  margin: 0;
+  font-family:
+    Impact,
+    Haettenschweiler,
+    "Arial Narrow Bold",
+    sans-serif;
+
+  font-size: clamp(78px, 12vw, 210px);
+  line-height: 0.89;
+  letter-spacing: -0.035em;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.titleMask {
+  display: block;
+  overflow: hidden;
+  padding: 0.02em 0 0.09em;
+  margin-bottom: -0.06em;
+}
+
+.titleMask > span {
+  display: inline-block;
+  transform-origin: left bottom;
+}
+
+.titleAccent {
+  color: var(--violet);
+}
+
+.fullStop {
+  color: var(--paper);
+}
+
+.coverLower {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: clamp(30px, 5vw, 90px);
+
+  margin-top: clamp(55px, 7vh, 100px);
+}
+
+/* Small note — not a floating card */
+
+.invitation {
+  max-width: 480px;
+  padding-top: 18px;
+  border-top: 1px solid #645d6b;
+}
+
+.microLabel {
+  display: block;
+  color: #b49acc;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+.invitation p {
+  margin: 17px 0 0;
+
+  color: #d3cdd5;
+  font-size: clamp(17px, 1.5vw, 22px);
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+}
+
+/* The main action */
+
+.coverAction {
+  display: inline-flex;
+  align-items: center;
+  gap: 25px;
+  flex-shrink: 0;
+
+  color: var(--paper);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+}
+
+.actionCircle {
+  display: grid;
+  place-items: center;
+
+  width: 86px;
+  height: 86px;
+
+  background: var(--violet);
+  border-radius: 50%;
+  color: var(--ink);
+
+  transition:
+    transform 0.45s cubic-bezier(.22, 1, .36, 1),
+    background 0.3s ease;
+}
+
+.actionCircle svg {
+  transition: transform 0.45s cubic-bezier(.22, 1, .36, 1);
+}
+
+.coverAction:hover .actionCircle,
+.coverAction:focus-visible .actionCircle {
+  transform: scale(1.08);
+  background: #b79aff;
+}
+
+.coverAction:hover svg,
+.coverAction:focus-visible svg {
+  transform: translate(5px, 5px);
+}
+
+.coverAction:focus-visible {
+  outline: 2px solid var(--violet);
+  outline-offset: 8px;
+}
+
+/* Scroll indicator */
+
+.progressTrack {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  height: 3px;
+  background: #39313e;
+}
+
+.progressFill {
+  width: 100%;
+  height: 100%;
+  background: var(--violet);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+/* ==========================================
+   PART 2 — THE ACTUAL FORM
+   ========================================== */
+
+.formStage {
+  position: relative;
+  background: var(--paper);
+  color: var(--ink);
+
+  padding: 35px 6% 35px;
+  min-height: 100svh;
+
+  scroll-margin-top: var(--site-nav-height, 76px);
+}
+
+/* Editorial header */
+
+.formTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+
+  padding-top: 17px;
+  border-top: 1px solid #514b52;
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+}
+
+.formHeading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(200px, 0.4fr);
+  gap: 20px 65px;
+  align-items: end;
+
+  padding: clamp(75px, 9vw, 130px) 0 65px;
+}
+
+.formHeading .microLabel {
+  grid-column: 1 / -1;
+  color: #8555c6;
+}
+
+.formHeading h2 {
+  margin: 0;
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(50px, 6vw, 105px);
+  line-height: 1.02;
+  font-weight: 800;
+  letter-spacing: -0.065em;
+}
+
+.formHeading h2 em {
+  font-style: normal;
+  color: #8454df;
+}
+
+.formHeading > p {
+  margin: 0 0 8px;
+  max-width: 340px;
+
+  font-size: 16px;
+  line-height: 1.65;
+  color: #625b65;
+}
+
+/* A small editorial sidebar and large writing area */
+
+.formGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
+  gap: clamp(55px, 9vw, 160px);
+
+  padding: 65px 0 100px;
+  border-top: 1px solid #9d969d;
+}
+
+.contactAside {
+  position: relative;
+  min-width: 0;
+}
+
+.asideNumber {
+  display: block;
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: #8d5ad7;
+}
+
+.asideText {
+  max-width: 395px;
+
+  margin: 24px 0 0;
+  font-size: clamp(19px, 1.9vw, 29px);
+  font-weight: 650;
+  line-height: 1.4;
+  letter-spacing: -0.035em;
+}
+
+.asideRule {
+  height: 1px;
+  width: 100%;
+  max-width: 390px;
+  margin: 45px 0;
+
+  background: #bab3b9;
+}
+
+/* Real social links */
+
+.socials {
+  display: flex;
+  flex-direction: column;
+  max-width: 390px;
+
+  margin-top: 20px;
+}
+
+.socials a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+  padding: 15px 0;
+
+  color: var(--ink);
+  border-bottom: 1px solid #bdb6bc;
+  text-decoration: none;
+
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+
+  transition: color 0.25s ease;
+}
+
+.socials a svg {
+  transition: transform 0.3s ease;
+}
+
+.socials a:hover {
+  color: #8653d7;
+}
+
+.socials a:hover svg {
+  transform: translate(4px, -4px);
+}
+
+/* Distinctive K/C signature */
+
+.signature {
+  margin-top: 75px;
+
+  font-family: Impact, "Arial Narrow Bold", sans-serif;
+  font-size: clamp(85px, 9vw, 155px);
+  line-height: 1;
+  letter-spacing: -0.08em;
+}
+
+.signature > span {
+  color: #9560e8;
+}
+
+.signature small {
+  display: block;
+  margin-top: 8px;
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: #716872;
+}
+
+/* ==========================================
+   FORM FIELDS
+   ========================================== */
+
+.form {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.field {
+  position: relative;
+  min-width: 0;
+  border-bottom: 1px solid #a69fa6;
+
+  transition: border-color 0.3s ease;
+}
+
+.field::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+
+  height: 2px;
+  background: #8859e8;
+
+  transform: scaleX(0);
+  transform-origin: left center;
+
+  transition: transform 0.45s cubic-bezier(.22, 1, .36, 1);
+  pointer-events: none;
+}
+
+.field:focus-within::after {
+  transform: scaleX(1);
+}
+
+.fieldHeader {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+
+  margin-bottom: 25px;
+}
+
+.fieldNumber {
+  color: #8752d9;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.fieldHeader label {
+  color: #27212a;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+/* Inputs are intentionally flat and borderless */
+
+.field input,
+.field textarea {
+  display: block;
+  width: 100%;
+
+  padding: 0 0 22px;
+  border: 0;
+  border-radius: 0;
+  outline: none;
+
+  background: transparent;
+  color: var(--ink);
+  box-shadow: none;
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(20px, 1.75vw, 27px);
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: #8f8790;
+  opacity: 1;
+}
+
+.field textarea {
+  min-height: 155px;
+  resize: vertical;
+}
+
+.counter {
+  display: block;
+  padding: 0 0 14px;
+  text-align: right;
+
+  color: #7b727c;
+  font-size: 10px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ==========================================
+   SUBMIT ACTION
+   ========================================== */
+
+.submitArea {
+  margin-top: 8px;
+}
+
+.submit {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+
+  width: 100%;
+  min-height: 88px;
+  padding: 22px 26px;
+
+  border: 1px solid var(--ink);
+  border-radius: 0;
+
+  background: var(--ink);
+  color: #f0ebe5;
+  cursor: pointer;
+
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+
+  transition:
+    background 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.submitIcon {
+  display: grid;
+  place-items: center;
+  transition: transform 0.35s ease;
+}
+
+.submit:hover:not(:disabled) {
+  background: #8958e7;
+  border-color: #8958e7;
+  color: #ffffff;
+}
+
+.submit:hover:not(:disabled) .submitIcon {
+  transform: translate(5px, -4px);
+}
+
+.submit:focus-visible {
+  outline: 2px solid #8958e7;
+  outline-offset: 5px;
+}
+
+.submit:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+/* Submission loading */
+
+.spinner {
+  display: block;
+  width: 21px;
+  height: 21px;
+
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+
+  animation: contactSpin 0.8s linear infinite;
+}
+
+@keyframes contactSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.feedback {
+  min-height: 22px;
+  margin: 13px 0 0;
+  color: #706873;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.success {
+  color: #287b52;
+  font-weight: 700;
+}
+
+.error {
+  color: #ab384a;
+  font-weight: 700;
+}
+
+/* ==========================================
+   CONTACT FOOTER
+   ========================================== */
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+
+  padding: 22px 0 8px;
+  border-top: 1px solid #aaa2ab;
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.footer a {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.footer a svg {
+  transform: rotate(-90deg);
+  transition: transform 0.3s ease;
+}
+
+.footer a:hover svg {
+  transform: rotate(-90deg) translateX(5px);
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN
+   ========================================== */
+
+@media (max-width: 1100px) {
+  .bigTitle {
+    font-size: clamp(74px, 11.5vw, 150px);
+  }
+
+  .formGrid {
+    gap: 55px;
+  }
+
+  .formHeading {
+    gap: 30px;
+  }
+}
+
+@media (max-width: 900px) {
+  .cover {
+    min-height: calc(
+      100svh - var(--site-nav-height, 76px)
+    );
+    padding: 32px 6% 28px;
+  }
+
+  .coverContent {
+    padding: 90px 0 70px;
+  }
+
+  .bigTitle {
+    font-size: clamp(64px, 11.5vw, 110px);
+  }
+
+  .coverLower {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 35px;
+  }
+
+  .coverAction {
+    align-self: flex-end;
+  }
+
+  .formHeading {
+    grid-template-columns: 1fr;
+    padding: 85px 0 65px;
+  }
+
+  .formHeading h2 {
+    font-size: clamp(51px, 8vw, 82px);
+  }
+
+  .formGrid {
+    grid-template-columns: 1fr;
+    gap: 65px;
+  }
+
+  .contactAside {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 35px;
+  }
+
+  .asideRule,
+  .signature {
+    display: none;
+  }
+
+  .asideText {
+    margin-top: 18px;
+    font-size: 21px;
+  }
+
+  .form {
+    gap: 32px;
+  }
+}
+
+@media (max-width: 600px) {
+  .coverTop,
+  .coverBottom,
+  .formTop,
+  .footer {
+    font-size: 9px;
+  }
+
+  .coverTop span:last-child,
+  .formTop span:last-child {
+    text-align: right;
+  }
+
+  .coverIntro {
+    font-size: 9px;
+    gap: 10px;
+    margin-bottom: 26px;
+  }
+
+  .asterisk {
+    font-size: 26px;
+  }
+
+  .bigTitle {
+    font-size: clamp(43px, 11.5vw, 70px);
+    letter-spacing: -0.035em;
+  }
+
+  .coverLower {
+    margin-top: 70px;
+  }
+
+  .invitation p {
+    font-size: 17px;
+  }
+
+  .coverAction {
+    width: 100%;
+    justify-content: space-between;
+    font-size: 10px;
+  }
+
+  .actionCircle {
+    width: 65px;
+    height: 65px;
+  }
+
+  .coverBottom span:last-child {
+    display: none;
+  }
+
+  .formStage {
+    padding: 28px 6% 30px;
+  }
+
+  .formHeading {
+    padding: 80px 0 45px;
+  }
+
+  .formHeading h2 {
+    font-size: clamp(43px, 10vw, 62px);
+  }
+
+  .formHeading > p {
+    font-size: 15px;
+  }
+
+  .formGrid {
+    padding: 45px 0 75px;
+    gap: 55px;
+  }
+
+  .contactAside {
+    display: block;
+  }
+
+  .contactAside > div + div:not(.asideRule) {
+    margin-top: 30px;
+  }
+
+  .asideText {
+    font-size: 20px;
+  }
+
+  .field input,
+  .field textarea {
+    font-size: 20px;
+  }
+
+  .submit {
+    min-height: 76px;
+    padding: 18px;
+    font-size: 12px;
+  }
+
+  .footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+}
+
+/* ==========================================
+   ACCESSIBILITY
+   ========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .coverContent {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .progressFill {
+    transform: scaleX(1);
+  }
+
+  .spinner {
+    animation: none;
+  }
+
+  .actionCircle,
+  .actionCircle svg,
+  .field::after,
+  .submit,
+  .submitIcon,
+  .socials a svg {
+    transition: none;
+  }
+}

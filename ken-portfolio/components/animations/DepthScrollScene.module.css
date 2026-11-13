@@ -1,0 +1,40 @@
+
+/* ========================================
+   CINEMATIC 3D SCROLL
+======================================== */
+
+.scene {
+  position: relative;
+  width: 100%;
+  background: #111014;
+
+  perspective: 1500px;
+  perspective-origin: 50% 45%;
+}
+
+/* Keep the scroll measurement elements stationary */
+.anchor {
+  position: relative;
+  width: 100%;
+  transform-style: preserve-3d;
+}
+
+/* Only these inner layers receive 3D transforms */
+.plane {
+  position: relative;
+  width: 100%;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+@media (max-width: 900px),
+       (prefers-reduced-motion: reduce) {
+  .scene {
+    perspective: none;
+  }
+
+  .anchor,
+  .plane {
+    transform-style: flat;
+  }
+}

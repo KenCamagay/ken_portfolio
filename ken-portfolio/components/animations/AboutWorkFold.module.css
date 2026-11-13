@@ -1,0 +1,545 @@
+
+/* ==========================================
+   STAGE 2 — THE ARCHIVE FLIP
+   ABOUT → SELECTED WORK
+========================================== */
+
+.scene {
+  --paper: #f2f0ec;
+  --ink: #111014;
+  --violet: #9b72ff;
+
+  position: relative;
+  width: 100%;
+  background: var(--paper);
+}
+
+/* ==========================================
+   EXISTING ABOUT PAGE
+========================================== */
+
+.aboutAnchor {
+  position: relative;
+  width: 100%;
+}
+
+.aboutPaper {
+  position: relative;
+  width: 100%;
+
+  transform-origin: center top;
+  backface-visibility: hidden;
+}
+
+/* ==========================================
+   TRANSITION SCROLL DISTANCE
+
+   The sticky stage fills the visible space
+   below the navbar. The additional 70svh
+   provides the transition's scroll range.
+========================================== */
+
+.transition {
+  position: relative;
+  width: 100%;
+
+  height: calc(
+    170svh - var(--site-nav-height, 76px)
+  );
+
+  background: var(--ink);
+}
+
+.stage {
+  position: sticky;
+  top: var(--site-nav-height, 76px);
+
+  width: 100%;
+  height: calc(
+    100svh - var(--site-nav-height, 76px)
+  );
+
+  overflow: hidden;
+  isolation: isolate;
+
+  background: var(--ink);
+
+  perspective: 1600px;
+  perspective-origin: 50% 45%;
+}
+
+/* ==========================================
+   THE CLOSING CREAM PAGE
+========================================== */
+
+.cream {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  padding: 35px 6% 32px;
+
+  background: var(--paper);
+  color: #171419;
+
+  transform-origin: center top;
+  backface-visibility: hidden;
+}
+
+.creamTop,
+.creamBottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+
+  border-top: 1px solid #9b949b;
+  padding-top: 16px;
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+}
+
+.creamBottom {
+  border-top: 0;
+  border-bottom: 1px solid #9b949b;
+  padding-top: 0;
+  padding-bottom: 16px;
+}
+
+.creamMiddle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+
+  padding: 25px 0;
+  text-align: center;
+}
+
+.creamMiddle > span {
+  color: #777078;
+
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+}
+
+.creamMiddle strong {
+  font-family:
+    Impact,
+    Haettenschweiler,
+    "Arial Narrow Bold",
+    sans-serif;
+
+  font-size: clamp(65px, 10vw, 175px);
+  line-height: 0.93;
+  letter-spacing: -0.025em;
+  font-weight: 900;
+}
+
+/* ==========================================
+   THE INCOMING ARCHIVE SHEET
+
+   Its initial slanted edge gives the feeling
+   of an angled printed sheet coming upward.
+========================================== */
+
+.archive {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+
+  background: var(--ink);
+  color: #f0ece7;
+
+  transform: translateY(107%) rotate(5deg);
+  transform-origin: center bottom;
+
+  clip-path: polygon(
+    0 7%,
+    75% 0,
+    100% 4%,
+    100% 100%,
+    0 100%
+  );
+
+  backface-visibility: hidden;
+  will-change: transform, clip-path;
+}
+
+.archive::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      125deg,
+      rgba(155, 114, 255, 0.045),
+      transparent 48%
+    );
+
+  pointer-events: none;
+}
+
+.archiveContent {
+  position: relative;
+  z-index: 2;
+
+  height: 100%;
+  max-width: 1900px;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  padding: clamp(32px, 5vh, 55px) 6% 30px;
+}
+
+/* ==========================================
+   UPPER CHAPTER METADATA
+========================================== */
+
+.archiveTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+
+  padding-top: 17px;
+  border-top: 1px solid #706977;
+
+  color: #b6acbd;
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+}
+
+/* ==========================================
+   LARGE EDITORIAL HEADLINE + INDEX
+========================================== */
+
+.archiveBody {
+  flex: 1;
+  min-height: 0;
+
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1.25fr)
+    minmax(275px, 0.65fr);
+
+  align-items: center;
+  gap: clamp(40px, 6vw, 120px);
+
+  padding: 25px 0;
+}
+
+.archiveIdentity {
+  min-width: 0;
+}
+
+.archiveEyebrow {
+  margin: 0 0 26px;
+
+  color: #aa91d8;
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+.archiveHeading {
+  margin: 0;
+  padding: 0;
+
+  font-family:
+    Impact,
+    Haettenschweiler,
+    "Arial Narrow Bold",
+    sans-serif;
+
+  font-weight: 900;
+  font-size: clamp(80px, 10vw, 180px);
+  line-height: 0.87;
+  letter-spacing: -0.025em;
+}
+
+.wordMask {
+  display: block;
+  overflow: hidden;
+
+  padding: 0.025em 0 0.09em;
+}
+
+.wordMask > span {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+}
+
+.period {
+  color: var(--violet);
+}
+
+/* ==========================================
+   REAL PROJECT INDEX
+========================================== */
+
+.index {
+  min-width: 0;
+  align-self: center;
+  width: 100%;
+}
+
+.indexHeading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+
+  padding-bottom: 18px;
+  border-bottom: 1px solid #756c7a;
+
+  color: #bcaad8;
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+}
+
+.indexRow {
+  display: grid;
+  grid-template-columns: 37px minmax(0, 1fr);
+  align-items: baseline;
+  gap: 12px;
+
+  padding: 17px 0;
+  border-bottom: 1px solid #413a48;
+}
+
+.indexRow > span {
+  color: var(--violet);
+
+  font-size: 11px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.indexRow strong {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(15px, 1.35vw, 22px);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.3;
+}
+
+.indexFoot {
+  margin: 28px 0 0;
+
+  color: #a69daa;
+
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.9;
+  letter-spacing: 0.11em;
+}
+
+/* ==========================================
+   FINAL CHAPTER LINE
+========================================== */
+
+.archiveBottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+
+  border-bottom: 1px solid #706977;
+  padding-bottom: 17px;
+
+  color: #b6acbd;
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+}
+
+.progress {
+  position: absolute;
+  z-index: 5;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  width: 100%;
+  height: 3px;
+
+  background: var(--violet);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+/* ==========================================
+   SMALLER DESKTOP SCREENS
+========================================== */
+
+@media (min-width: 901px) and (max-width: 1250px) {
+  .archiveBody {
+    grid-template-columns:
+      minmax(0, 1.1fr)
+      minmax(235px, 0.75fr);
+
+    gap: 35px;
+  }
+
+  .archiveHeading {
+    font-size: clamp(70px, 9vw, 125px);
+  }
+
+  .indexRow {
+    padding: 12px 0;
+  }
+
+  .indexFoot {
+    margin-top: 18px;
+  }
+}
+
+@media (min-width: 901px) and (max-height: 720px) {
+  .archiveHeading {
+    font-size: clamp(70px, 8vw, 125px);
+  }
+
+  .archiveEyebrow {
+    margin-bottom: 16px;
+  }
+
+  .indexRow {
+    padding: 10px 0;
+  }
+
+  .indexFoot {
+    margin-top: 14px;
+  }
+}
+
+/* ==========================================
+   MOBILE — SHORT, NATURAL CHAPTER INTRO
+========================================== */
+
+@media (max-width: 900px) {
+  .transition {
+    height: 260px;
+  }
+
+  .stage {
+    position: relative;
+    top: auto;
+    height: 260px;
+    perspective: none;
+  }
+
+  .cream {
+    display: none;
+  }
+
+  .archive {
+    transform: none;
+    clip-path: none;
+    will-change: auto;
+  }
+
+  .archiveContent {
+    padding: 28px 6%;
+  }
+
+  .archiveBody {
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+  }
+
+  .archiveEyebrow {
+    margin-bottom: 10px;
+    font-size: 9px;
+  }
+
+  .archiveHeading {
+    font-size: clamp(56px, 11vw, 95px);
+  }
+
+  .archiveHeading .wordMask:first-child {
+    font-size: 0.6em;
+  }
+
+  .index,
+  .progress {
+    display: none;
+  }
+
+  .archiveTop,
+  .archiveBottom {
+    font-size: 9px;
+    letter-spacing: 0.08em;
+  }
+}
+
+/* ==========================================
+   REDUCED MOTION
+========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .transition {
+    height: 260px;
+  }
+
+  .stage {
+    position: relative;
+    top: auto;
+    height: 260px;
+    perspective: none;
+  }
+
+  .aboutPaper {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .cream {
+    display: none;
+  }
+
+  .archive {
+    transform: none !important;
+    clip-path: none !important;
+    will-change: auto;
+  }
+
+  .archiveContent {
+    padding: 26px 6%;
+  }
+
+  .archiveBody {
+    display: flex;
+    padding: 15px 0;
+  }
+
+  .archiveHeading {
+    font-size: clamp(52px, 8vw, 92px);
+  }
+
+  .index,
+  .progress {
+    display: none;
+  }
+}

@@ -1,0 +1,515 @@
+
+/* =========================================
+   K/C — SCROLL-DRIVEN 3D INTRO
+========================================= */
+
+.intro {
+  --intro-paper: #eeeae3;
+  --intro-ink: #171419;
+  --intro-violet: #945cf5;
+
+  position: relative;
+  width: 100%;
+
+  /* Room for the fixed navbar */
+  margin-top: var(--site-nav-height, 76px);
+
+  /* Extra space creates the scroll journey */
+  height: calc(
+    230svh - var(--site-nav-height, 76px)
+  );
+
+  background: var(--intro-paper);
+  color: var(--intro-ink);
+}
+
+/* The scene stays visible while the parent scrolls */
+
+.stage {
+  position: sticky;
+  top: var(--site-nav-height, 76px);
+
+  width: 100%;
+  height: calc(
+    100svh - var(--site-nav-height, 76px)
+  );
+
+  overflow: hidden;
+  isolation: isolate;
+
+  background: var(--intro-paper);
+
+  perspective: 1400px;
+  perspective-origin: 50% 50%;
+}
+
+/* A single registration line, not a grid */
+
+.stage::before {
+  content: "";
+  position: absolute;
+
+  top: 0;
+  bottom: 0;
+  left: 6%;
+
+  width: 1px;
+  background: rgba(23, 20, 25, 0.1);
+
+  pointer-events: none;
+}
+
+/* =========================================
+   TOP / BOTTOM EDITORIAL INFORMATION
+========================================= */
+
+.cornerTop,
+.cornerBottom {
+  position: absolute;
+  z-index: 7;
+
+  left: 6%;
+  right: 6%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+}
+
+.cornerTop {
+  top: 30px;
+
+  padding-top: 17px;
+  border-top: 1px solid #89818b;
+}
+
+.cornerTop a {
+  color: inherit;
+  text-decoration: none;
+
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 5px;
+
+  transition: color 0.25s ease;
+}
+
+.cornerTop a:hover {
+  color: #8050e1;
+}
+
+.cornerBottom {
+  bottom: 37px;
+
+  padding-bottom: 16px;
+  border-bottom: 1px solid #89818b;
+}
+
+.cornerBottom span:nth-child(2) {
+  color: #6b626f;
+}
+
+/* =========================================
+   PHYSICAL TYPOGRAPHIC MONOGRAM
+========================================= */
+
+.logoArea {
+  position: absolute;
+  z-index: 4;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  pointer-events: none;
+  perspective: 1400px;
+}
+
+.logo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family:
+    Impact,
+    Haettenschweiler,
+    "Arial Narrow Bold",
+    sans-serif;
+
+  font-size: clamp(160px, 30vw, 470px);
+  font-weight: 900;
+  line-height: 0.8;
+  letter-spacing: -0.09em;
+
+  white-space: nowrap;
+
+  transform-style: preserve-3d;
+  transform-origin: center center;
+
+  will-change: transform;
+}
+
+/* Every character has its own 3D coordinate space */
+
+.letter {
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+
+  transform-style: preserve-3d;
+  transform-origin: center center;
+}
+
+.face {
+  position: relative;
+  display: block;
+
+  color: var(--intro-ink);
+
+  transform: translateZ(12px);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* Thin stacked extrusion behind the letters */
+
+.depth {
+  position: absolute;
+  inset: 0;
+
+  display: block;
+  color: #8c8291;
+  opacity: 0.44;
+
+  pointer-events: none;
+  backface-visibility: hidden;
+}
+
+/* The slash is the central hinge */
+
+.slash {
+  color: var(--intro-violet);
+  margin: 0 0.045em;
+}
+
+.slash .face {
+  color: var(--intro-violet);
+}
+
+.slash .depth {
+  color: #6c41ae;
+}
+
+/* =========================================
+   CENTRAL PORTAL
+========================================= */
+
+.portal {
+  position: absolute;
+  z-index: 2;
+
+  top: 50%;
+  left: 50%;
+
+  width: min(34vw, 480px);
+  height: min(68vh, 650px);
+
+  background: #141217;
+
+  border-left: 2px solid #945cf5;
+  border-right: 2px solid #945cf5;
+
+  transform:
+    translate(-50%, -50%)
+    scaleX(0.001);
+
+  transform-origin: center center;
+  will-change: transform;
+
+  pointer-events: none;
+}
+
+/* The real identity appears inside the opening */
+
+.reveal {
+  position: absolute;
+  z-index: 3;
+
+  top: 50%;
+  left: 50%;
+
+  width: min(33vw, 430px);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+
+  transform: translate(-50%, -50%);
+
+  color: #f2eee8;
+  text-align: center;
+
+  opacity: 0;
+  pointer-events: none;
+}
+
+.reveal > span {
+  font-family:
+    Impact,
+    "Arial Narrow Bold",
+    sans-serif;
+
+  font-size: clamp(33px, 3.8vw, 61px);
+  line-height: 1;
+  letter-spacing: -0.025em;
+}
+
+.reveal strong {
+  font-size: 10px;
+  letter-spacing: 0.17em;
+  color: #b99aff;
+}
+
+.reveal small {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: #a9a0ae;
+}
+
+/* Right-side printed annotation */
+
+.sideNote {
+  position: absolute;
+  z-index: 5;
+
+  top: 50%;
+  right: 3%;
+
+  writing-mode: vertical-rl;
+
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  color: #857b89;
+
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+/* =========================================
+   SCROLL PROGRESS
+========================================= */
+
+.progressTrack {
+  position: absolute;
+  z-index: 8;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  height: 3px;
+  background: #c9c2cd;
+
+  pointer-events: none;
+}
+
+.progressFill {
+  width: 100%;
+  height: 100%;
+
+  background: var(--intro-violet);
+
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+/* =========================================
+   TABLET / MOBILE
+========================================= */
+
+@media (max-width: 900px) {
+  .intro {
+    height: calc(
+      155svh - var(--site-nav-height, 68px)
+    );
+  }
+
+  .stage {
+    perspective: 900px;
+  }
+
+  .logo {
+    font-size: clamp(120px, 33vw, 300px);
+  }
+
+  .portal,
+  .reveal {
+    display: none;
+  }
+
+  .sideNote {
+    display: none;
+  }
+
+  .cornerTop,
+  .cornerBottom {
+    font-size: 9px;
+  }
+
+  .cornerBottom span:nth-child(2) {
+    display: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .cornerTop,
+  .cornerBottom {
+    left: 6%;
+    right: 6%;
+    gap: 10px;
+  }
+
+  .cornerTop {
+    top: 24px;
+  }
+
+  .cornerTop span {
+    max-width: 55%;
+    line-height: 1.5;
+  }
+
+  .logo {
+    font-size: clamp(100px, 34vw, 165px);
+  }
+
+  .depth {
+    opacity: 0.25;
+  }
+
+  .cornerBottom span:first-child {
+    max-width: 65%;
+    line-height: 1.5;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .intro {
+    height: calc(
+      100svh - var(--site-nav-height, 76px)
+    );
+  }
+
+  .logo,
+  .letter {
+    transform: none !important;
+    will-change: auto;
+  }
+
+  .depth {
+    display: none;
+  }
+
+  .portal,
+  .reveal {
+    display: none;
+  }
+
+  .progressFill {
+    transform: scaleX(1);
+  }
+}
+
+
+/* ==========================================
+   K/C AS A STATIONARY HERO OVERLAY
+========================================== */
+
+.intro.embedded {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  margin: 0;
+
+  overflow: hidden;
+  background: #eeeae3;
+}
+
+.embedded .stage {
+  position: absolute;
+  inset: 0;
+  top: 0;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+}
+
+/* Keep the layered monogram above the portal. */
+
+.embedded .logoArea {
+  z-index: 4;
+}
+
+.embedded .portal {
+  z-index: 2;
+}
+
+.embedded .reveal {
+  z-index: 3;
+}
+
+/* The skip action replaces the old anchor. */
+
+.skip {
+  padding: 0 0 5px;
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  border-radius: 0;
+
+  background: transparent;
+  color: inherit;
+
+  font: inherit;
+  letter-spacing: inherit;
+  cursor: pointer;
+
+  transition: color 0.25s ease;
+}
+
+.skip:hover {
+  color: #8050e1;
+}
+
+.skip:focus-visible {
+  outline: 2px solid #945cf5;
+  outline-offset: 6px;
+}
+
+/* Mobile and reduced-motion:
+   go directly to the regular Hero. */
+
+@media (max-width: 900px),
+       (prefers-reduced-motion: reduce) {
+  .intro.embedded {
+    display: none;
+  }
+}

@@ -1,0 +1,92 @@
+
+/* =========================================
+   HERO — FOLDED METAL SCULPTURE
+========================================= */
+
+.artifact {
+  position: absolute;
+  z-index: 0;
+
+  top: 17%;
+  right: -1%;
+
+  width: min(45vw, 670px);
+  height: min(70vh, 690px);
+
+  pointer-events: none;
+  isolation: isolate;
+}
+
+/* Soft glow behind the 3D sculpture */
+.artifact::before {
+  content: "";
+  position: absolute;
+
+  width: 88%;
+  aspect-ratio: 1;
+
+  top: 7%;
+  left: 7%;
+
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle,
+    rgba(139, 84, 255, 0.22) 0%,
+    rgba(122, 65, 220, 0.09) 35%,
+    transparent 72%
+  );
+
+  filter: blur(30px);
+  pointer-events: none;
+}
+
+.artifact > div:first-child {
+  position: relative;
+  z-index: 1;
+}
+
+.artifactCaption {
+  position: absolute;
+  z-index: 2;
+
+  bottom: 4%;
+  right: 10%;
+
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+
+  color: #aaa0bc;
+}
+
+.artifactCaption span:first-child {
+  color: #b79aff;
+}
+
+/* Don't let the 3D sculpture overpower the typography */
+@media (min-width: 901px) and (max-width: 1250px) {
+  .artifact {
+    width: 43vw;
+    height: 55vh;
+    top: 24%;
+    right: -4%;
+    opacity: 0.78;
+  }
+
+  .artifactCaption {
+    display: none;
+  }
+}
+
+/* Mobile and reduced-motion fallback */
+@media (max-width: 900px),
+       (prefers-reduced-motion: reduce) {
+  .artifact {
+    display: none;
+  }
+}
